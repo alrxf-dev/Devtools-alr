@@ -1,0 +1,43 @@
+{
+  "name": "alrect-file-tools",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ALRECT FILE TOOLS: 150 browser-based file and developer utilities. Files are processed locally. Created by Alrect and AI.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Alrect <mycontant.gokil@alzvyn.web.id>",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "build": "node scripts/build.mjs",
+    "preview": "node scripts/serve.mjs dist",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "typecheck:offline": "tsc --noEmit -p tsconfig.offline.json",
+    "lint": "node scripts/lint.mjs",
+    "test": "node --import tsx --test tests/unit/*.test.ts",
+    "test:e2e": "node --import tsx tests/e2e/run.ts",
+    "check": "npm run typecheck && npm run lint && npm test && npm run build && npm run test:e2e",
+    "font": "python3 scripts/make-pixel-font.py"
+  },
+  "dependencies": {
+    "dompurify": "3.4.14",
+    "jszip": "3.10.1",
+    "marked": "18.0.10",
+    "pdf-lib": "1.17.1",
+    "pdfjs-dist": "6.2.108",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "react-icons": "5.7.0",
+    "xml-js": "1.6.11",
+    "yaml": "2.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.3",
+    "@types/react": "19.2.0",
+    "@types/react-dom": "19.2.0",
+    "esbuild": "0.28.2",
+    "playwright": "1.63.0",
+    "tsx": "4.23.12",
+    "typescript": "6.0.3"
+  }
+}
