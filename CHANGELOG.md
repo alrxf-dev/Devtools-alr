@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1
+- Day/night switch in the header. Day is the original cream-window skin; night is a 2.5D theme (slate windows, stacked extruded edges, teal rim light, card tilt on hover).
+- First visit picks the theme from the local clock (06:00-17:59 day); the choice is then saved in localStorage (`alrect.theme`).
+- Privacy text now lists the theme choice instead of the removed effects toggle.
+- New tests: theme unit test and five page-level e2e checks (clock default, click + persistence, keyboard, 390px layout, reduced motion).
+
 ## 0.1.0
 - 150 tools in 10 categories, all client-side.
 - Neo-retro pixel interface (navy, turquoise, orange, cream), chiptune sound effects after first interaction, WebGL pixel background with CSS fallback.

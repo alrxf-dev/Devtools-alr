@@ -1,0 +1,21 @@
+import { category } from './helpers';
+const t = category('developer');
+const NOEXEC = 'Your code is only read as text. It is never run.';
+
+export const DEVELOPER_TOOLS = [
+  t('json-validator', 'JSON Validator', 'text+file', 'Check JSON syntax and see the exact line and column of the first error, plus type, key count and depth.', { keywords: ['lint', 'check json', 'syntax'], featured: true }),
+  t('xml-validator', 'XML Validator', 'text+file', 'Check that XML is well-formed: balanced tags, a single root, quoted attributes. It reports the line of the first problem.', { keywords: ['well-formed', 'check xml', 'syntax'], statusNote: 'Checks well-formedness only. It does not validate against an XSD or DTD.' }),
+  t('html-formatter', 'HTML Formatter', 'text', 'Indent HTML by nesting depth, keeping script, style and pre content intact.', { keywords: ['beautify', 'indent html', 'pretty print'], statusNote: 'Puts each element on its own line, which can change whitespace between inline elements.', safety: NOEXEC }),
+  t('css-formatter', 'CSS Formatter', 'text', 'Format CSS with one declaration per line, respecting strings, comments and url().', { keywords: ['beautify css', 'indent', 'pretty print'] }),
+  t('javascript-formatter', 'JavaScript Formatter', 'text', 'Re-indent JavaScript by braces while preserving strings, comments and template literals.', { status: 'partial', statusNote: 'A brace-based re-indenter, not a full parser: it fixes indentation and line breaks but does not wrap long lines or reformat expressions like Prettier.', keywords: ['beautify js', 'indent', 'pretty print'], safety: NOEXEC }),
+  t('url-parser', 'URL Parser', 'text', 'Split a URL into scheme, host, port, path, query parameters and fragment, with warnings for credentials and non-HTTPS schemes.', { keywords: ['query string', 'parameters', 'hostname'] }),
+  t('regex-tester', 'Regex Tester', 'text', 'Test a JavaScript regular expression against sample text, with match positions, capture groups and replace preview. Runs in a worker with a time limit.', { keywords: ['regexp', 'pattern', 'match', 'groups'], featured: true, safety: 'Patterns run in a background worker that is terminated after two seconds, so catastrophic backtracking cannot freeze the page.' }),
+  t('uuid-generator', 'UUID Generator', 'none', 'Generate version 4 (random) and version 7 (time-ordered) UUIDs in bulk, with format options.', { keywords: ['guid', 'unique id', 'v4', 'v7'] }),
+  t('jwt-decoder', 'JWT Decoder', 'text', 'Decode the header and payload of a JSON Web Token and show expiry. The signature is NOT verified.', { keywords: ['json web token', 'bearer', 'claims', 'token'], featured: true, safety: 'Decoding is not verification: never trust a token’s claims without checking its signature on a server. Avoid pasting production secrets.' }),
+  t('http-header-inspector', 'HTTP Header Inspector', 'text', 'Parse raw HTTP headers into a table and flag weak cookies, duplicate headers and information-leaking headers.', { keywords: ['response headers', 'cookies', 'server'] }),
+  t('color-converter', 'Color Converter', 'text', 'Convert between HEX, RGB and HSL (with alpha) and check contrast against white and black.', { keywords: ['hex', 'rgb', 'hsl', 'contrast', 'wcag'] }),
+  t('css-minifier', 'CSS Minifier', 'text', 'Remove comments and whitespace from CSS while keeping strings, url() and /*! license */ comments.', { keywords: ['compress css', 'minify'] }),
+  t('javascript-minifier', 'JavaScript Minifier', 'text', 'Remove comments and unnecessary whitespace from JavaScript without renaming or reordering anything.', { status: 'partial', statusNote: 'Conservative whitespace and comment removal only. It does not mangle names or compress expressions, so savings are smaller than with Terser or esbuild. Regex literals are detected heuristically.', keywords: ['compress js', 'minify'], safety: NOEXEC }),
+  t('html-minifier', 'HTML Minifier', 'text', 'Remove comments and collapse whitespace in HTML while leaving script, style, pre and textarea content untouched.', { keywords: ['compress html', 'minify'], safety: NOEXEC }),
+  t('source-code-line-counter', 'Source Code Line Counter', 'files', 'Count code, comment and blank lines in source files, with totals per language chosen from the extension.', { keywords: ['loc', 'sloc', 'cloc', 'lines of code'] }),
+];

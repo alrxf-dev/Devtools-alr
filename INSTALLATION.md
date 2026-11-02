@@ -17,3 +17,10 @@ npm run check        # typecheck + lint + unit + build + e2e
 - **Offline typecheck.** `npm run typecheck:offline` uses `tools/offline-types/react.d.ts`, a small hand-written React type shim, because `@types/react` was not available. `npm run typecheck` (real `@types/react`) was never run here.
 - Dependencies were taken from a pre-populated tool directory, not freshly installed.
 - Lint is `scripts/lint.mjs`, a project-specific checker, not ESLint.
+
+## Deploying on Vercel
+The repo root has no `index.html`; the site is built into `dist/`. Add a `vercel.json` (or set the same values in Project Settings):
+```json
+{ "framework": null, "installCommand": "npm install", "buildCommand": "npm run build", "outputDirectory": "dist" }
+```
+Not verified on Vercel from this environment. `dist/_headers` is Netlify format and is ignored by Vercel.
