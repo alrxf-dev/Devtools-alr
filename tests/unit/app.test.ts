@@ -88,3 +88,10 @@ test('store notifies subscribers and survives a storage that throws', () => {
   writeFxPref('off', kv);
   assert.equal(readFxPref(kv), 'off');
 });
+
+test('donate route parses, has a title and a hash link', () => {
+  assert.equal(parseHash('#/donate').name, 'donate');
+  assert.equal(parseHash('#/donate/x').name, 'notfound');
+  assert.equal(routeTitle({ name: 'donate' }), 'Donate');
+  assert.equal(href.page('donate'), '#/donate');
+});

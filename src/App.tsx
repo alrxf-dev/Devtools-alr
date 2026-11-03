@@ -8,7 +8,7 @@ import { FxBackground } from './components/FxBackground';
 import { Announcer, announce } from './components/Announcer';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { ToolPage } from './pages/ToolPage';
-import { About, Help, Privacy, SecurityPage } from './pages/Info';
+import { About, Help, Donate, Privacy, SecurityPage } from './pages/Info';
 import { AllTools, CategoryPage, FavoritesPage, Home, NotFound, RecentPage, SearchPage } from './pages/Pages';
 
 export function App() {
@@ -40,6 +40,7 @@ export function App() {
     case 'about': page = <About />; break;
     case 'privacy': page = <Privacy />; break;
     case 'security': page = <SecurityPage />; break;
+    case 'donate': page = <Donate />; break;
     case 'help': page = <Help />; break;
     case 'notfound': page = <NotFound path={route.path} />; break;
   }

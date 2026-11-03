@@ -86,6 +86,7 @@ export function Header({ route }: { route: Route }) {
         <nav className="nav" aria-label="Main">
           <a href={href.tools()} {...(route.name === 'tools' || route.name === 'category' || route.name === 'tool' ? { 'aria-current': 'page' as const } : {})}>Tools</a>
           <a className="nav-extra" href={href.page('favorites')} {...(route.name === 'favorites' ? { 'aria-current': 'page' as const } : {})}>Favorites</a>
+          <a href={href.page('donate')} {...(route.name === 'donate' ? { 'aria-current': 'page' as const } : {})}>Donate</a>
           <ThemeSwitch />
         </nav>
       </div>
@@ -109,6 +110,7 @@ export function Footer() {
               <li><a href={href.page('favorites')}>Favorites</a></li>
               <li><a href={href.page('recent')}>Recently used</a></li>
               <li><a href={href.page('help')}>Help</a></li>
+              <li><a href={href.page('donate')}>Donate</a></li>
             </ul>
           </div>
           <div>

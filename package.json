@@ -1,6 +1,6 @@
 {
   "name": "alrect-file-tools",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "private": true,
   "description": "ALRECT FILE TOOLS: 150 browser-based file and developer utilities. Files are processed locally. Created by Alrect and AI.",
   "type": "module",

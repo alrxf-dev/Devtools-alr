@@ -1,0 +1,50 @@
+/* Doodle-notebook icon bar (credits). Structure and motion follow the Uiverse "doodle" bar; colours are the project palette. */
+.doodle-defs { position: absolute; visibility: hidden; }
+.doodle-container {
+  list-style: none; margin: 28px 0; padding: 24px 34px; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 20px; width: fit-content; max-width: 100%;
+  background-color: #fff8e0;
+  background-image: repeating-linear-gradient(transparent, transparent 22px, #7fe3d8 22px, #7fe3d8 24px);
+  border: 4px solid #0b1426; border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  box-shadow: 8px 10px 0 rgba(0, 0, 0, 0.35);
+  filter: url(#pencil-texture);
+}
+.doodle-icon-content { margin: 0; position: relative; }
+.doodle-link {
+  display: flex; justify-content: center; align-items: center; width: 50px; height: 50px; color: #0b1426; text-decoration: none;
+  border: 4px solid #0b1426; border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; box-shadow: 3px 4px 0 #0b1426;
+}
+.doodle-link svg { transform: rotate(-5deg); }
+.link-email { background-color: #b8f0e8; }
+.link-github { background-color: #e6d9b4; }
+.link-instagram { background-color: #ffc99a; }
+.link-tiktok { background-color: #bfe9ff; }
+.link-whatsapp { background-color: #ffe08a; }
+.doodle-link:hover, .doodle-link:focus-visible { transform: translateY(-8px) scale(1.1); box-shadow: 6px 10px 0 #0b1426; color: #fff8e0; }
+.doodle-link:hover svg, .doodle-link:focus-visible svg { transform: rotate(15deg) scale(1.15); filter: drop-shadow(2px 2px 0 #0b1426) drop-shadow(-1px -1px 0 #0b1426); }
+.link-email:hover, .link-email:focus-visible { background-color: #2ec4b6; border-radius: 60% 40% 40% 60% / 50% 50% 40% 60%; }
+.link-github:hover, .link-github:focus-visible { background-color: #1b3166; border-radius: 40% 60% 50% 50% / 60% 40% 60% 40%; }
+.link-instagram:hover, .link-instagram:focus-visible { background-color: #f27d2d; border-radius: 50% 50% 60% 40% / 40% 60% 50% 50%; }
+.link-tiktok:hover, .link-tiktok:focus-visible { background-color: #146b66; border-radius: 70% 30% 50% 50% / 40% 60% 40% 60%; }
+.link-whatsapp:hover, .link-whatsapp:focus-visible { background-color: #d9931a; border-radius: 45% 55% 40% 60% / 55% 45% 60% 40%; }
+.doodle-link:focus-visible { outline: 3px solid #f4b942; outline-offset: 4px; }
+
+.doodle-tooltip {
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%) rotate(-5deg); padding: 6px 14px; color: #0b1426; white-space: nowrap;
+  border: 4px solid #0b1426; border-radius: 255px 25px 225px 25px / 25px 225px 25px 255px; box-shadow: 4px 6px 0 #0b1426;
+  opacity: 0; visibility: hidden; font: 800 16px/1.2 var(--font-ui); letter-spacing: 0.04em; pointer-events: none; z-index: 10;
+}
+.doodle-tooltip::after { content: ''; position: absolute; bottom: -11px; left: 50%; transform: translateX(-50%) rotate(15deg) skewX(25deg); width: 14px; height: 14px; border-bottom: 4px solid #0b1426; border-right: 4px solid #0b1426; background: inherit; }
+.tooltip-email { background: #2ec4b6; } .tooltip-github { background: #e6d9b4; } .tooltip-instagram { background: #f27d2d; } .tooltip-tiktok { background: #7fe3d8; } .tooltip-whatsapp { background: #f4b942; }
+.doodle-icon-content:hover .doodle-tooltip, .doodle-icon-content:focus-within .doodle-tooltip { opacity: 1; visibility: visible; top: -66px; transform: translateX(-50%) rotate(3deg); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .doodle-link { transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s, background-color 0.3s, border-radius 0.3s, color 0.3s; }
+  .doodle-link svg { transition: transform 0.3s ease; }
+  .doodle-tooltip { transition: opacity 0.3s, top 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), visibility 0.3s; }
+  .doodle-link:hover { animation: doodle-wiggle 0.3s ease-in-out infinite alternate; }
+  @keyframes doodle-wiggle { from { transform: translateY(-8px) scale(1.1) rotate(-4deg); } to { transform: translateY(-8px) scale(1.1) rotate(4deg); } }
+}
+@media (max-width: 560px) { .doodle-container { padding: 22px 20px; gap: 16px; } .doodle-link { width: 46px; height: 46px; } }
+.credit-list { list-style: none; padding: 0; margin: 12px 0 20px; display: grid; gap: 6px; }
+.credit-list li { display: flex; flex-wrap: wrap; gap: 4px 12px; }
+.credit-list b { min-width: 6.5rem; font-family: var(--font-pixel); font-weight: 400; letter-spacing: 0.05em; text-transform: uppercase; color: var(--teal-hi); }

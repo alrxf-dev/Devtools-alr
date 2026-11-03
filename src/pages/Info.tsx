@@ -1,6 +1,9 @@
 import type { ReactNode } from 'react';
 import { TOOLS, countByStatus, CATEGORIES } from '../registry';
 import { href } from '../app/router';
+import { DonateButton } from '../components/DonateButton';
+import { SAWERIA_URL, CONTACTS } from '../app/links';
+import { SocialLinks } from '../components/SocialLinks';
 
 function Page({ title, lead, children }: { title: string; lead?: string; children: ReactNode }) {
   return (
@@ -26,7 +29,29 @@ export function About() {
       </ul>
       <h2>Credits</h2>
       <p>Created by Alrect and AI. Questions or bug reports: <a href="mailto:mycontant.gokil@alzvyn.web.id">mycontant.gokil@alzvyn.web.id</a>.</p>
+      <SocialLinks />
+      <ul className="credit-list">
+        {CONTACTS.map((c) => (
+          <li key={c.id}><b>{c.label}</b><a href={c.href} {...(c.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{c.handle}</a></li>
+        ))}
+      </ul>
       <p>Open-source libraries in use are listed with their licences in <code>THIRD_PARTY_LICENSES.md</code> in the source archive.</p>
+    </Page>
+  );
+}
+
+export function Donate() {
+  return (
+    <Page title="Donate" lead="Free to use. Support is optional.">
+      <p>ALRECT FILE TOOLS has no ads, no accounts and no paywall. If it saved you time, you can chip in through Saweria and, if you like, leave a note about a feature you would like to see.</p>
+      <div className="donate-wrap"><DonateButton /></div>
+      <h2>What to expect</h2>
+      <ul>
+        <li>The button opens <a href={SAWERIA_URL} target="_blank" rel="noopener noreferrer">saweria.co/alzhenjb</a> in a new tab. Saweria is a separate service with its own terms and privacy policy. Nothing from your files or from this app is sent to it.</li>
+        <li>A donation does not unlock anything. Every tool works the same for everyone.</li>
+        <li>Feature requests are read and considered. There is no promise or deadline that a request will be built.</li>
+        <li>You can also send a request by email: <a href="mailto:mycontant.gokil@alzvyn.web.id">mycontant.gokil@alzvyn.web.id</a>.</li>
+      </ul>
     </Page>
   );
 }
@@ -42,6 +67,8 @@ export function Privacy() {
       </ul>
       <h2>What is stored in your browser</h2>
       <p>Three small items in <code>localStorage</code>: your favourite tool IDs, your last 12 used tool IDs with timestamps, and your day/night theme choice. File names, file contents and text you type are never stored. You can clear favourites and history from their pages, or clear site data in your browser.</p>
+      <h2>External links</h2>
+      <p>The Donate page links to Saweria, and the Credits section on the About page links to the creator’s GitHub, Instagram, TikTok, WhatsApp and email. Following any of these leaves this app; that service then handles your visit under its own policy. The app itself makes no request to them.</p>
       <h2>What the host can see</h2>
       <p>Whoever serves this app (for example, a web host) sees ordinary request logs for the app’s own files, as with any website. They do not see what you do inside the tools. If you run it locally, nothing leaves your machine.</p>
       <h2>Metadata in files you share</h2>

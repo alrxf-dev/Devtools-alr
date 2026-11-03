@@ -1,0 +1,33 @@
+/* Wave button on the Donate page. Palette: orange, amber, cream, ink. Plain CSS port of a wave-slide button. */
+.donate-wrap { display: flex; justify-content: center; padding: 28px 0 56px; }
+.donate-btn {
+  position: relative; display: inline-flex; align-items: center; justify-content: center; overflow: hidden; isolation: isolate;
+  height: 3.5rem; padding: 0 2.5rem; max-width: 100%; border-radius: 999px; text-decoration: none; cursor: pointer;
+  background: linear-gradient(90deg, #d9531e, #f27d2d);
+  box-shadow: 0 0 0 3px var(--ink), 4px 5px 0 3px var(--ink), 0 10px 22px rgba(242, 125, 45, 0.45);
+  font-family: var(--font-pixel); font-size: 15px; letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap;
+  -webkit-box-reflect: below 2px linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.35));
+  margin-bottom: 1.2rem;
+}
+.donate-btn::after { content: ''; position: absolute; z-index: -2; left: 50%; top: 50%; width: 96%; height: 84%; transform: translate(-50%, -50%); border-radius: 999px; background: #ffe6c8; }
+.donate-size { visibility: hidden; padding: 0; }
+.donate-t1, .donate-t2 { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 3; }
+.donate-t1 { color: #7a2a06; }
+.donate-t2 { color: var(--ink); transform: translateY(100%); font-weight: 800; }
+.donate-wave, .donate-front { position: absolute; left: 0; width: 100%; pointer-events: none; }
+.donate-wave { z-index: 1; top: 62%; height: 100%; transform: rotate(180deg) scaleX(1.25); transform-origin: center; opacity: 0.9; }
+.donate-front { z-index: 2; top: 66%; height: 100%; fill: #f27d2d; opacity: 0.9; }
+.donate-btn:hover .donate-t1, .donate-btn:focus-visible .donate-t1 { transform: translateY(-100%); }
+.donate-btn:hover .donate-t2, .donate-btn:focus-visible .donate-t2 { transform: translateY(0); }
+.donate-btn:hover .donate-wave, .donate-btn:focus-visible .donate-wave { top: -8%; }
+.donate-btn:hover .donate-front, .donate-btn:focus-visible .donate-front { top: -4%; }
+.donate-btn:hover, .donate-btn:focus-visible { filter: saturate(1.15); }
+.donate-btn:active { filter: saturate(1.4); }
+.donate-btn:focus-visible { outline: 3px solid var(--yellow); outline-offset: 5px; }
+@media (prefers-reduced-motion: no-preference) {
+  .donate-t1, .donate-t2, .donate-wave, .donate-front { transition: transform 0.3s ease, top 0.45s ease; }
+  .donate-wave { animation: donate-pulse 2.4s ease-in-out infinite; }
+  @keyframes donate-pulse { 50% { opacity: 0.6; } }
+}
+:root[data-theme='night'] .donate-btn { box-shadow: 0 0 0 3px #050a17, 4px 5px 0 3px #050a17, 0 0 26px rgba(242, 125, 45, 0.5); }
+@media (max-width: 420px) { .donate-btn { padding: 0 1.2rem; font-size: 12px; letter-spacing: 0.06em; height: 3.2rem; white-space: normal; text-align: center; line-height: 1.15; } .donate-size { display: none; } .donate-btn { min-width: 100%; } }

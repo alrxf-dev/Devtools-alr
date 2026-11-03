@@ -12,6 +12,7 @@ export type Route =
   | { name: 'about' }
   | { name: 'privacy' }
   | { name: 'security' }
+  | { name: 'donate' }
   | { name: 'help' }
   | { name: 'notfound'; path: string };
 
@@ -55,6 +56,7 @@ export function parseHash(hash: string): Route {
     case 'about':
     case 'privacy':
     case 'security':
+    case 'donate':
     case 'help':
       return b === undefined ? ({ name: a } as Route) : { name: 'notfound', path };
     default:
@@ -74,7 +76,7 @@ export const href = {
   category: (id: CategoryId) => `#/category/${id}`,
   tool: (id: string) => `#/tool/${encodeURIComponent(id)}`,
   search: (q: string) => `#/search?q=${encodeURIComponent(q)}`,
-  page: (n: 'favorites' | 'recent' | 'about' | 'privacy' | 'security' | 'help') => `#/${n}`,
+  page: (n: 'favorites' | 'recent' | 'about' | 'privacy' | 'security' | 'donate' | 'help') => `#/${n}`,
 };
 
 export function routeTitle(r: Route): string {
@@ -89,6 +91,7 @@ export function routeTitle(r: Route): string {
     case 'about': return 'About ALRECT';
     case 'privacy': return 'Privacy';
     case 'security': return 'Security';
+    case 'donate': return 'Donate';
     case 'help': return 'Help and troubleshooting';
     case 'notfound': return 'Page not found';
   }

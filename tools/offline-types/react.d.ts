@@ -278,6 +278,14 @@ declare module 'react' {
     shapeRendering?: string;
     fillRule?: string;
     clipRule?: string;
+    baseFrequency?: string | number;
+    numOctaves?: string | number;
+    result?: string;
+    in?: string;
+    in2?: string;
+    scale?: string | number;
+    xChannelSelector?: string;
+    yChannelSelector?: string;
     preserveAspectRatio?: string;
     focusable?: string | boolean;
   }

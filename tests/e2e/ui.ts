@@ -69,5 +69,34 @@ export async function runUiChecks(browser: Browser, base: string): Promise<UiChe
     const tr = await p.evaluate(() => getComputedStyle(document.querySelector('.card') as Element).transform);
     await ctx.close(); return tr === 'none' ? [] : [`card transform under reduced motion: ${tr}`];
   });
+
+  await check('donate: tab, safe external link, page renders', async () => {
+    const ctx = await browser.newContext({ viewport: { width: 390, height: 800 } });
+    const p = await ctx.newPage(); await p.goto(`${base}#/tools`); await p.waitForSelector('.nav');
+    const res: string[] = [];
+    if (!(await p.isVisible('.nav a:has-text("Donate")'))) res.push('Donate tab not visible at 390px');
+    await p.click('.nav a:has-text("Donate")'); await p.waitForSelector('.donate-btn');
+    const a = await p.evaluate(() => { const e = document.querySelector('.donate-btn') as HTMLAnchorElement; return { href: e.href, target: e.target, rel: e.rel, label: e.getAttribute('aria-label') ?? '' }; });
+    if (a.href !== 'https://saweria.co/alzhenjb') res.push(`href is ${a.href}`);
+    if (a.target !== '_blank') res.push('target is not _blank');
+    if (!/noopener/.test(a.rel) || !/noreferrer/.test(a.rel)) res.push(`rel is "${a.rel}"`);
+    if (!/Donation for request features/.test(a.label)) res.push(`aria-label is "${a.label}"`);
+    if (await p.evaluate(() => document.documentElement.scrollWidth > innerWidth)) res.push('donate page scrolls horizontally');
+    await ctx.close(); return res;
+  });
+
+  await check('credits: five contact links with the right targets, no overflow at 390px', async () => {
+    const ctx = await browser.newContext({ viewport: { width: 390, height: 800 } });
+    const p = await ctx.newPage(); await p.goto(`${base}#/about`); await p.waitForSelector('.doodle-container');
+    const res: string[] = [];
+    const want = ['mailto:alrectofficial@gmail.com', 'https://github.com/alrxf-dev', 'https://www.instagram.com/alrectdev8', 'https://www.tiktok.com/@xploitalip', 'https://wa.me/6282192401340'];
+    const got = await p.evaluate(() => [...document.querySelectorAll('.doodle-link')].map((a) => { const e = a as HTMLAnchorElement; return { href: e.getAttribute('href') ?? '', target: e.target, rel: e.rel }; }));
+    if (JSON.stringify(got.map((g) => g.href)) !== JSON.stringify(want)) res.push(`hrefs: ${got.map((g) => g.href).join(', ')}`);
+    for (const g of got.filter((x) => x.href.startsWith('http'))) if (g.target !== '_blank' || !/noopener/.test(g.rel)) res.push(`unsafe external link ${g.href}`);
+    const text = await p.locator('.credit-list').innerText();
+    for (const t of ['alrectofficial@gmail.com', 'alrxf-dev', '@alrectdev8', '@xploitalip', '+62 821-9240-1340']) if (!text.includes(t)) res.push(`text list missing ${t}`);
+    if (await p.evaluate(() => document.documentElement.scrollWidth > innerWidth)) res.push('about page scrolls horizontally');
+    await ctx.close(); return res;
+  });
   return out;
 }
