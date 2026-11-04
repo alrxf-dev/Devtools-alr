@@ -14,7 +14,7 @@ import { SECURITY_TOOLS } from './catalog/security';
 export * from './types';
 export { CATEGORIES, CATEGORY_BY_ID } from './categories';
 
-/** The single source of truth for the 150-tool catalogue. */
+/** The single source of truth for the tool catalogue. */
 export const TOOLS: readonly ToolMeta[] = [
   ...IMAGE_TOOLS, ...PDF_TOOLS, ...FILE_TOOLS, ...ARCHIVE_TOOLS, ...TEXT_TOOLS,
   ...DATA_TOOLS, ...AUDIO_TOOLS, ...VIDEO_TOOLS, ...DEVELOPER_TOOLS, ...SECURITY_TOOLS,

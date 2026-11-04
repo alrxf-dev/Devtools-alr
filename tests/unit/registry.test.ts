@@ -3,17 +3,17 @@ import assert from 'node:assert/strict';
 import { CATEGORIES, TOOLS, TOOL_BY_ID, STATUS_LABEL, toolsInCategory, countByStatus } from '../../src/registry';
 import { searchTools, normalize } from '../../src/registry/search';
 
-test('catalogue has exactly 150 tools in 10 categories of 15', () => {
-  assert.equal(TOOLS.length, 150);
+test('catalogue has 151 tools in 10 categories (15 each, Video has 16)', () => {
+  assert.equal(TOOLS.length, 151);
   assert.equal(CATEGORIES.length, 10);
-  for (const c of CATEGORIES) assert.equal(toolsInCategory(c.id).length, 15, c.id);
+  for (const c of CATEGORIES) assert.equal(toolsInCategory(c.id).length, c.id === 'video' ? 16 : 15, c.id);
 });
 
 test('tool ids are unique, stable-looking kebab-case, and names are unique', () => {
-  assert.equal(new Set(TOOLS.map((t) => t.id)).size, 150);
-  assert.equal(new Set(TOOLS.map((t) => t.name.toLowerCase())).size, 150, 'duplicate tool names suggest renamed copies');
+  assert.equal(new Set(TOOLS.map((t) => t.id)).size, TOOLS.length);
+  assert.equal(new Set(TOOLS.map((t) => t.name.toLowerCase())).size, TOOLS.length, 'duplicate tool names suggest renamed copies');
   for (const t of TOOLS) assert.match(t.id, /^[a-z0-9]+(-[a-z0-9]+)*$/, t.id);
-  assert.equal(TOOL_BY_ID.size, 150);
+  assert.equal(TOOL_BY_ID.size, TOOLS.length);
 });
 
 test('every entry is complete, and non-working entries explain themselves', () => {
@@ -24,17 +24,17 @@ test('every entry is complete, and non-working entries explain themselves', () =
     if (t.status !== 'working') assert.ok((t.statusNote ?? '').length > 20, `${t.id}: ${t.status} needs an explanation`);
   }
   // No two tools may share a description (guards against "renamed copy" padding).
-  assert.equal(new Set(TOOLS.map((t) => t.description)).size, 150);
+  assert.equal(new Set(TOOLS.map((t) => t.description)).size, TOOLS.length);
 });
 
 test('status counts add up', () => {
   const c = countByStatus();
-  assert.equal(c.working + c.partial + c.backend + c.unsupported, 150);
+  assert.equal(c.working + c.partial + c.backend + c.unsupported, TOOLS.length);
 });
 
 test('search: ranking, AND semantics, diacritics and punctuation', () => {
   assert.equal(searchTools('')[0]?.id, TOOLS[0]?.id);
-  assert.equal(searchTools('').length, 150);
+  assert.equal(searchTools('').length, TOOLS.length);
   assert.equal(searchTools('pdf merger')[0]?.id, 'pdf-merger');
   assert.equal(searchTools('SHA-256')[0]?.id, 'sha-256-hash-calculator');
   assert.ok(searchTools('sha256').some((t) => t.id === 'sha-256-hash-calculator'));

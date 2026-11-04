@@ -2,7 +2,7 @@
 
 Small Pixels. Powerful Tools.
 
-150 file and developer tools in 10 categories (15 each): Image, PDF, Files, Archive, Text, Data, Audio, Video, Developer, Security. Everything runs in your browser; files are not uploaded.
+151 file and developer tools in 10 categories (15 each, Video has 16): Image, PDF, Files, Archive, Text, Data, Audio, Video, Developer, Security. Everything runs in your browser; files are not uploaded.
 
 Donate tab (Saweria link, voluntary, unlocks nothing). Day/night switch in the header (first visit follows the clock, then your choice is remembered).
 
@@ -13,15 +13,17 @@ Contact: alrectofficial@gmail.com · GitHub alrxf-dev · Instagram @alrectdev8 �
 ## Status (observed when this version was packaged)
 | Check | Result |
 |---|---|
-| Tools implemented | 150 / 150 |
-| Tool status | 144 working, 6 partial, 0 backend, 0 unsupported (see [docs/TOOL-STATUS.md](docs/TOOL-STATUS.md)) |
+| Tools implemented | 151 (150 in the original spec + Video Watermark) |
+| Tool status | 145 working, 6 partial, 0 backend, 0 unsupported (see [docs/TOOL-STATUS.md](docs/TOOL-STATUS.md)) |
 | Typecheck (offline shim) | clean |
 | Lint (`scripts/lint.mjs`) | 0 findings |
-| Unit tests | 99 / 99 |
-| E2E (Playwright, headless Chromium) | 338 / 338 (331 tool cases + 7 page-level UI checks) |
+| Unit tests | 104 / 104 |
+| E2E (Playwright, headless Chromium) | 346 / 346 (337 tool cases + 9 page-level UI checks). Run per group (`--group=`): one single run of all cases crashed Chromium twice in this sandbox (out of the browser, not an assertion), so the last verified run was 10 group runs |
 | Production build | OK, `dist/` about 3.2 MB |
 
 ## Known limitations
+- Video Watermark renders by playing the video once in real time and re-encodes to WebM (quality loss, takes as long as the video). Verified only in headless Chromium, with pixel checks on the output.
+- Mobile fix: below 560px every button used to stretch to full width, which squeezed file names in file lists to 0px (all tools). Icon and list buttons are now excluded; checked at 390px, day and night.
 - Partial tools: PDF compressor, PDF document validator, JavaScript formatter, JavaScript minifier, video frame-rate inspector, video trim tool. Reasons are in the tool pages and the status list.
 - Video trim: recording output was not verified in headless Chromium, so it is marked partial.
 - Night theme was checked on the home, tool list and one tool page, not every tool page. A one-off e2e flake (JWT decoder) was traced to a harness race and fixed by retrying reads; it passed in the final full run.

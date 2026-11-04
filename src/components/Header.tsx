@@ -1,6 +1,7 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { href, type Route } from '../app/router';
 import { searchTools } from '../registry/search';
+import { TOOLS } from '../registry';
 import { Logo } from './PixelSprite';
 import { ThemeSwitch } from './ThemeSwitch';
 import { I } from './icons';
@@ -30,13 +31,13 @@ export function SearchBox({ initial = '' }: { initial?: string }) {
 
   return (
     <div className="combo" ref={box} role="search">
-      <label htmlFor={id} className="sr-only">Search 150 tools</label>
+      <label htmlFor={id} className="sr-only">Search {TOOLS.length} tools</label>
       <span className="combo-icon"><I.search size={18} aria-hidden /></span>
       <input
         id={id}
         className="input"
         type="search"
-        placeholder="Search 150 tools…"
+        placeholder={`Search ${TOOLS.length} tools…`}
         autoComplete="off"
         spellCheck={false}
         role="combobox"

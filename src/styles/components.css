@@ -157,3 +157,32 @@ td { font-family: var(--font-mono); font-size: 13px; }
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
   .card:hover { transform: none; }
 }
+
+/* ---- video watermark tool ---- */
+.wm-files { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
+.wm-grid { display: grid; gap: 20px; margin-top: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); align-items: start; }
+.wm-canvas { display: block; width: 100%; height: auto; border: 3px solid var(--ink); background: #000; touch-action: none; cursor: grab; }
+.wm-canvas:active { cursor: grabbing; }
+.wm-canvas:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
+.wm-set { border: 2px solid var(--line-2); margin: 0 0 16px; padding: 12px 14px 4px; min-width: 0; }
+.wm-set legend { padding: 0 6px; font-weight: 800; }
+.wm-switch { display: flex; gap: 10px; margin-bottom: 12px; }
+.wm-num-row { display: grid; grid-template-columns: 1fr minmax(84px, 7rem); gap: 12px; align-items: center; }
+.wm-num-row input[type='range'] { width: 100%; accent-color: var(--orange); min-height: 28px; }
+.wm-color-row { display: grid; grid-template-columns: 56px 1fr; gap: 12px; align-items: center; }
+.wm-color-row input[type='color'] { width: 56px; height: 44px; padding: 2px; border: 3px solid var(--ink); background: var(--cream-hi); cursor: pointer; }
+.wm-anchors { display: grid; grid-template-columns: repeat(3, 44px); gap: 6px; margin-bottom: 14px; }
+.wm-anchors .btn { width: 44px; height: 44px; padding: 0; display: grid; place-items: center; }
+.wm-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 8px; }
+.wm-actions .help { flex: 1 1 100%; margin: 0; }
+
+/* ---- NEW badge and filter ---- */
+.badge-new { color: #0b1426; background: var(--orange); border-color: #0b1426; font-family: var(--font-pixel); font-weight: 400; letter-spacing: 0.08em; }
+.badge-new::before { background: #0b1426; }
+.chip-new::after { content: ''; width: 8px; height: 8px; margin-left: 8px; background: var(--orange); box-shadow: 0 0 0 2px #0b1426; display: inline-block; }
+@media (prefers-reduced-motion: no-preference) { .badge-new { animation: new-blink 1.4s steps(1) infinite; } @keyframes new-blink { 50% { filter: brightness(1.25); } } }
+.wm-files > *, .wm-grid > *, .wm-preview, .wm-controls { min-width: 0; }
+.wm .drop, .wm .drop * { overflow-wrap: anywhere; }
+.wm .file-list li { min-width: 0; }
+.wm .file-list li > span:first-child { min-width: 0; overflow-wrap: anywhere; }
+.wm-num-row > * { min-width: 0; }

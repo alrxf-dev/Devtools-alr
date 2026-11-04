@@ -3,7 +3,7 @@ import type { CategoryId, ToolStatus } from '../registry';
 
 export type Route =
   | { name: 'home' }
-  | { name: 'tools'; category?: CategoryId; status?: ToolStatus }
+  | { name: 'tools'; category?: CategoryId; status?: ToolStatus; onlyNew?: boolean }
   | { name: 'category'; id: CategoryId }
   | { name: 'tool'; id: string }
   | { name: 'favorites' }
@@ -43,6 +43,7 @@ export function parseHash(hash: string): Route {
         name: 'tools',
         ...(c && CATEGORY_BY_ID.has(c) ? { category: c as CategoryId } : {}),
         ...(s && STATUSES.has(s) ? { status: s as ToolStatus } : {}),
+        ...(query.get('new') === '1' ? { onlyNew: true } : {}),
       };
     }
     case 'category':
@@ -66,8 +67,9 @@ export function parseHash(hash: string): Route {
 
 export const href = {
   home: () => '#/',
-  tools: (o: { category?: CategoryId; status?: ToolStatus } = {}) => {
+  tools: (o: { category?: CategoryId; status?: ToolStatus; onlyNew?: boolean } = {}) => {
     const p = new URLSearchParams();
+    if (o.onlyNew) p.set('new', '1');
     if (o.category) p.set('category', o.category);
     if (o.status) p.set('status', o.status);
     const s = p.toString();

@@ -61,27 +61,29 @@ export function Home() {
   );
 }
 
-function Filters({ category, status, q }: { category: CategoryId | undefined; status: ToolStatus | undefined; q?: string | undefined }) {
+function Filters({ category, status, onlyNew, q }: { category: CategoryId | undefined; status: ToolStatus | undefined; onlyNew?: boolean | undefined; q?: string | undefined }) {
   const statuses: ToolStatus[] = ['working', 'partial', 'backend', 'unsupported'];
   const present = new Set(TOOLS.map((t) => t.status));
-  const go = (c: CategoryId | undefined, s: ToolStatus | undefined) => { location.hash = href.tools({ ...(c ? { category: c } : {}), ...(s ? { status: s } : {}) }).slice(1); };
+  const hasNew = TOOLS.some((t) => t.isNew);
+  const go = (c: CategoryId | undefined, s: ToolStatus | undefined, n: boolean | undefined = onlyNew) => { location.hash = href.tools({ ...(c ? { category: c } : {}), ...(s ? { status: s } : {}), ...(n ? { onlyNew: true } : {}) }).slice(1); };
   return (
     <div className="filters" role="group" aria-label="Filters">
       <button type="button" className="chip" aria-pressed={!category} onClick={() => go(undefined, status)}>All categories</button>
       {CATEGORIES.map((c) => <button key={c.id} type="button" className="chip" aria-pressed={category === c.id} onClick={() => go(category === c.id ? undefined : c.id, status)}>{c.short}</button>)}
       <span style={{ width: 16 }} />
+      {hasNew ? <button type="button" className="chip chip-new" aria-pressed={onlyNew === true} onClick={() => go(category, status, !onlyNew)}>New</button> : null}
       {statuses.filter((s) => present.has(s)).map((s) => <button key={s} type="button" className="chip" aria-pressed={status === s} onClick={() => go(category, status === s ? undefined : s)}>{STATUS_LABEL[s]}</button>)}
       {q ? null : null}
     </div>
   );
 }
 
-export function AllTools({ category, status }: { category?: CategoryId; status?: ToolStatus }) {
-  const list = useMemo(() => TOOLS.filter((t) => (!category || t.category === category) && (!status || t.status === status)), [category, status]);
+export function AllTools({ category, status, onlyNew }: { category?: CategoryId; status?: ToolStatus; onlyNew?: boolean }) {
+  const list = useMemo(() => TOOLS.filter((t) => (!category || t.category === category) && (!status || t.status === status) && (!onlyNew || t.isNew === true)), [category, status, onlyNew]);
   return (
     <div className="container page">
       <div className="page-head"><h1>All tools</h1><p>{list.length} of {TOOLS.length} tools shown.</p></div>
-      <Filters category={category} status={status} />
+      <Filters category={category} status={status} onlyNew={onlyNew} />
       {list.length === 0 ? <p>No tools match these filters. <a href={href.tools()}>Clear filters</a></p> : <div className="grid grid-tools">{list.map((t) => <ToolCard key={t.id} tool={t} />)}</div>}
     </div>
   );

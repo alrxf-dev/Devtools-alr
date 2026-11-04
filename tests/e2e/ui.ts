@@ -98,5 +98,40 @@ export async function runUiChecks(browser: Browser, base: string): Promise<UiChe
     if (await p.evaluate(() => document.documentElement.scrollWidth > innerWidth)) res.push('about page scrolls horizontally');
     await ctx.close(); return res;
   });
+
+  await check('new: badge on the card and tool page, New filter lists only new tools', async () => {
+    const ctx = await browser.newContext({ viewport: { width: 1100, height: 800 } });
+    const p = await ctx.newPage(); await p.goto(`${base}#/tools`); await p.waitForSelector('.card');
+    const res: string[] = [];
+    const total = await p.locator('.card').count();
+    await p.getByRole('button', { name: 'New', exact: true }).click(); await p.waitForTimeout(300);
+    const shown = await p.locator('.card').count();
+    if (shown < 1 || shown >= total) res.push(`New filter shows ${shown} of ${total} cards`);
+    if (!(await p.locator('.card h3', { hasText: 'Video Watermark' }).count())) res.push('Video Watermark missing under New');
+    if ((await p.locator('.card .badge-new').count()) !== shown) res.push('every card under New should carry the NEW badge');
+    if (!/new=1/.test(p.url())) res.push(`URL does not record the filter: ${p.url()}`);
+    await p.goto(`${base}#/tool/video-watermark`); await p.waitForSelector('.tool-head');
+    if (!(await p.locator('.tool-meta .badge-new').count())) res.push('tool page has no NEW badge');
+    await ctx.close(); return res;
+  });
+
+  await check('watermark tool: no horizontal scroll at 390px with a video and a logo loaded (day and night)', async () => {
+    const res: string[] = [];
+    const fs = await import('node:fs'); const path = await import('node:path'); const { fileURLToPath } = await import('node:url');
+    const fx = (n: string) => fs.readFileSync(path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'fixtures', n));
+    for (const t of ['day', 'night']) {
+      const ctx = await browser.newContext({ viewport: { width: 390, height: 900 } }); await ctx.addInitScript((v) => localStorage.setItem('alrect.theme', v), t);
+      const p = await ctx.newPage(); await p.goto(`${base}#/tool/video-watermark`); await p.waitForSelector('.tool-panel input[type=file]');
+      await p.locator('.tool-panel input[type=file]').nth(0).setInputFiles({ name: 'clip.webm', mimeType: 'video/webm', buffer: fx('clip.webm') });
+      await p.waitForSelector('.wm-canvas');
+      await p.locator('.tool-panel input[type=file]').nth(1).setInputFiles({ name: 'logo_red.png', mimeType: 'image/png', buffer: fx('logo_red.png') });
+      await p.waitForTimeout(600);
+      if (await p.evaluate(() => document.documentElement.scrollWidth > innerWidth)) res.push(`${t}: page scrolls horizontally`);
+      const nameW = await p.evaluate(() => (document.querySelector('.file-list .name') as HTMLElement | null)?.getBoundingClientRect().width ?? 0);
+      if (nameW < 60) res.push(`${t}: file name column is only ${Math.round(nameW)}px wide`);
+      await ctx.close();
+    }
+    return res;
+  });
   return out;
 }

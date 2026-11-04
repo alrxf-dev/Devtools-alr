@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.4
+- New tool: Video Watermark (video category, now 16 tools; catalogue total 151). Text and/or logo (PNG, JPG, WebP, GIF, SVG), any colour, logo recolour, font, size, opacity, rotation, drag-to-place, arrow-key nudging, quick positions, tiling, output width and bitrate, optional audio. Renders a WebM copy by playing the video once in real time.
+- NEW badge on tool cards and tool pages, and a "New" filter on the tools page (`#/tools?new=1`).
+- Search placeholder and labels now use the real tool count.
+- Tests: watermark maths unit tests, 6 e2e cases for the tool (including pixel checks on the downloaded video), 1 UI check for the NEW label.
+- Fix: on screens under 560px the remove button in file lists stretched to full width and hid the file name (all tools).
+- Video Trim Tool unchanged and still partial: re-recording in headless Chromium still produced no data in several attempts.
+
 ## 0.1.3
 - Credits (About page): doodle-notebook icon bar plus a text list with email, GitHub, Instagram, TikTok and WhatsApp.
 

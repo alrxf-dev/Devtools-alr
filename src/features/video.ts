@@ -1,4 +1,4 @@
-import { form, kv, notice, optCheck, optNum, optSelect, optText, table, text, str, num, bool, download, readBytes, oneFile, needFiles, throwIfAborted, tick, fmtNum } from './kit';
+import { form, custom, kv, notice, optCheck, optNum, optSelect, optText, table, text, str, num, bool, download, readBytes, oneFile, needFiles, throwIfAborted, tick, fmtNum } from './kit';
 import type { Block, ImplMap, RunCtx } from './types';
 import { readMp4, type Mp4Info, type Mp4Track } from '../lib/mp4';
 import { createZip } from '../lib/zip';
@@ -188,6 +188,8 @@ export const IMPL: ImplMap = {
       return [{ type: 'media', kind: 'video', blob: f, title: 'Player (local playback; nothing is uploaded)' }, kv([['Size', `${info.w}×${info.h}`], ['Duration', fmtDur(info.d)], ['File', `${f.name}, ${formatBytes(f.size)}`]])];
     },
   }),
+
+  'video-watermark': custom(() => import('./custom/VideoWatermark')),
 
   'video-trim-tool': form({
     files: fileSpec,

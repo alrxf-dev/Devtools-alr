@@ -95,3 +95,9 @@ test('donate route parses, has a title and a hash link', () => {
   assert.equal(routeTitle({ name: 'donate' }), 'Donate');
   assert.equal(href.page('donate'), '#/donate');
 });
+
+test('tools route keeps the new filter in the hash', () => {
+  assert.deepEqual(parseHash('#/tools?new=1'), { name: 'tools', onlyNew: true });
+  assert.equal(href.tools({ onlyNew: true }), '#/tools?new=1');
+  assert.deepEqual(parseHash('#/tools?new=0'), { name: 'tools' });
+});

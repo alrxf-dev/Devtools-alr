@@ -5,7 +5,7 @@ import { stores } from '../app/stores';
 import { loadImpl } from '../features';
 import type { ToolImpl } from '../features/types';
 import { FormTool } from '../components/FormTool';
-import { FavButton, StatusBadge, ToolCard } from '../components/Bits';
+import { FavButton, StatusBadge, NewBadge, ToolCard } from '../components/Bits';
 import { I } from '../components/icons';
 import { errorMessage } from '../lib/safe';
 import { ErrorBoundary } from '../components/ErrorBoundary';
@@ -39,7 +39,7 @@ export function ToolPage({ tool }: { tool: ToolMeta }) {
       <div className="tool-head">
         <div>
           <h1>{tool.name}</h1>
-          <div className="tool-meta"><StatusBadge status={tool.status} /><span style={{ color: 'var(--muted)', fontSize: 14 }}>{cat?.name}</span></div>
+          <div className="tool-meta"><StatusBadge status={tool.status} />{tool.isNew ? <NewBadge /> : null}<span style={{ color: 'var(--muted)', fontSize: 14 }}>{cat?.name}</span></div>
         </div>
         <FavButton tool={tool} />
       </div>

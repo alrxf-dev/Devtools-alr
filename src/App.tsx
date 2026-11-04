@@ -31,7 +31,7 @@ export function App() {
   let page: ReactNode;
   switch (route.name) {
     case 'home': page = <Home />; break;
-    case 'tools': page = <AllTools {...(route.category ? { category: route.category } : {})} {...(route.status ? { status: route.status } : {})} />; break;
+    case 'tools': page = <AllTools {...(route.category ? { category: route.category } : {})} {...(route.status ? { status: route.status } : {})} {...(route.onlyNew ? { onlyNew: true } : {})} />; break;
     case 'category': page = <CategoryPage id={route.id} />; break;
     case 'tool': { const t = TOOL_BY_ID.get(route.id); page = t ? <ToolPage tool={t} /> : <NotFound path={route.id} />; break; }
     case 'favorites': page = <FavoritesPage />; break;

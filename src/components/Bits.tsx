@@ -11,6 +11,10 @@ export function StatusBadge({ status }: { status: ToolStatus }) {
   return <span className={`badge badge-${status}`} title={STATUS_HELP[status]}>{STATUS_LABEL[status]}</span>;
 }
 
+export function NewBadge() {
+  return <span className="badge badge-new" title="Added recently">New</span>;
+}
+
 export function FavButton({ tool }: { tool: ToolMeta }) {
   const favs = useFavorites();
   const on = favs.includes(tool.id);
@@ -41,7 +45,7 @@ export function ToolCard({ tool }: { tool: ToolMeta }) {
         </div>
         <h3>{tool.name}</h3>
         <p>{tool.description}</p>
-        <div className="card-foot"><StatusBadge status={tool.status} /></div>
+        <div className="card-foot"><StatusBadge status={tool.status} />{tool.isNew ? <NewBadge /> : null}</div>
       </a>
       <FavButton tool={tool} />
     </div>

@@ -26,6 +26,8 @@ export interface ToolMeta {
   safety?: string;
   /** Surfaced on the home page. */
   featured?: boolean;
+  /** Shown with a NEW badge and under the "New" filter. Remove when the tool is no longer new. */
+  isNew?: boolean;
 }
 
 export interface CategoryMeta {

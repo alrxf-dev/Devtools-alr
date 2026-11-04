@@ -178,6 +178,7 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
 @media (max-width: 560px) {
   .tool-panel { padding: 46px 14px 16px; }
   .btn { width: 100%; }
+  .icon-btn, .file-list .btn, .wm-anchors .btn { width: auto; flex: none; }
   .hero-actions .btn { width: auto; flex: 1 1 auto; }
   .hero h1 { text-shadow: 3px 3px 0 var(--orange-d); }
   .hero h1 b { text-shadow: 3px 3px 0 var(--teal-d); }
