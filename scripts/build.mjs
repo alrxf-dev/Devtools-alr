@@ -85,7 +85,8 @@ export async function buildAll() {
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#080C16">
-<meta name="description" content="ALRECT FILE TOOLS: 150 file, text, data, image, PDF, audio, video, developer and security tools that run in your browser. Files are not uploaded.">
+<meta name="google-site-verification" content="bqzXGz409O03AKsj25UC8OYurNJKX5tF-8lpOiwV6Sg" />
+<meta name="description" content="ALRECT FILE TOOLS: 151 file, text, data, image, PDF, audio, video, developer and security tools that run in your browser. Files are not uploaded.">
 <title>ALRECT FILE TOOLS</title>
 <link rel="icon" href="./favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="${css}">
